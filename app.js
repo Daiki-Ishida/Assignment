@@ -30,12 +30,19 @@ const sessionOpt = {
   saveUninitialized: true,
   cookie: { maxAge: 1000 * 60 * 60 }
 }
+const sessionCheck = (req, res, next) => {
+  if (req.session.uid) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+};
 app.use(session(sessionOpt));
 
 app.use('/', indexRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
-app.use('/chat', chatRouter);
+app.use('/chat', sessionCheck, chatRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
