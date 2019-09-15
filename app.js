@@ -38,7 +38,6 @@ const sessionCheck = (req, res, next) => {
     res.redirect('/login');
   }
 };
-
 app.use(session(sessionOpt));
 
 app.use('/', indexRouter);
