@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var registerRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
+var logoutRouter = require('./routes/logout');
 var chatRouter = require('./routes/chat');
 
 var app = express();
@@ -43,6 +44,7 @@ app.use(session(sessionOpt));
 app.use('/', indexRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 app.use('/chat', sessionCheck, chatRouter);
 app.use('/users', usersRouter);
 

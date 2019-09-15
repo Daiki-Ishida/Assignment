@@ -14,11 +14,24 @@
     <div class="header-right">
       <ul>
         <li><%= `logged in as ${user.name}` %></li>
-        <li><a href="/logout">Logout</a></li>
+        <li><a href="/logout" onclick="logout(e)">Logout</a></li>
       </ul>
     </div>
   </header>
   <h1>Chat#Top</h1>
+
+
+  <script>
+    function logout(e) {
+      confirm('ログアウトしますか？');
+      event.preventDefault();
+      var form = document.createElement('form');
+      form.action = event.target.href;
+      form.method = 'post';
+      document.body.appendChild(form);
+      form.submit();
+    }
+  </script>
 </body>
 
 </html>
