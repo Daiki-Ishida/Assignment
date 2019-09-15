@@ -12,13 +12,14 @@ router.post('/', (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     password_digest: req.body.password
-  }).then(() => {
-    console.log('success');
+  }).then((user) => {
+    console.log('user created');
+    req.session.uid = user.id;
     res.redirect('/chat/top');
   }).catch((err) => {
     console.log('error');
     console.log(err);
-    res.redirect('/chat/top');
+    res.redirect('/register');
   })
 })
 
