@@ -8,15 +8,9 @@
 
 <body>
   <header>
-    <div class="header-left">
-      <a href="/">Home</a>
-    </div>
-    <div class="header-right">
-      <ul>
-        <li><%= `logged in as ${user.name}` %></li>
-        <li><a href="/logout" onclick="logout(e)">Logout</a></li>
-      </ul>
-    </div>
+    <p><%= `logged in as ${user.name}` %></p>
+    <a href="/">Home</a>
+    <button type="button" id="logout" onclick="logout()">Logout</button>
   </header>
   <h1>Chat#Top</h1>
 
@@ -24,9 +18,8 @@
   <script>
     function logout(e) {
       confirm('ログアウトしますか？');
-      event.preventDefault();
       var form = document.createElement('form');
-      form.action = event.target.href;
+      form.action = "/logout";
       form.method = 'post';
       document.body.appendChild(form);
       form.submit();
