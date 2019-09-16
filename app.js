@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
+const redis = require('redis');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -25,12 +26,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // session
+let RedisStore = require('connect-redis')(session)
+let client = redis.createClient()
+client.on('error', function (err) {
+  console.log('Error ' + err)
+})
+
 const sessionOpt = {
+  store: new RedisStore({ client }),
   secret: 'hcetkcab',
   resave: false,
   saveUninitialized: true,
   cookie: { maxAge: 1000 * 60 * 60 }
 }
+
 const isLoggedIn = (req, res, next) => {
   if (req.session.uid) {
     next();
