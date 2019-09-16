@@ -7,20 +7,18 @@ router.get('/', function (req, res, next) {
   res.render('register');
 });
 
-router.post('/', async (req, res, next) => {
-  const user = await models.User.create({
+router.post('/', (req, res, next) => {
+  models.User.create({
     name: req.body.name,
     email: req.body.email,
     password_digest: req.body.password
-  })
-  if (user) {
+  }).then((user) => {
     console.log('user created!');
-    await user.login(req);
-    res.redirect('/chat/top');
-  } else {
+    user.login(req, res);
+  }).catch(() => {
     console.log('failed to create user!');
     res.redirect('/register');
-  }
+  })
 });
 
 module.exports = router;

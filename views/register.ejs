@@ -9,22 +9,40 @@
 <body>
   <h1>Register</h1>
   <div class="register-form">
-    <form action="/register" method="POST">
+    <form action="/register" method="POST" id="registerForm">
       <label>Name</label>
-      <input type="text" placeholder="name" name="name">
+      <input type="text" placeholder="name" name="name" id="name">
 
       <label>Email</label>
-      <input type="email" placeholder="email" name="email">
+      <input type="email" placeholder="email" name="email" id="email">
 
       <label>Password</label>
-      <input type="password" placeholder="password" name="password">
+      <input type="password" placeholder="password" name="password" id="password">
 
       <label>Password Confirmation</label>
-      <input type="password" placeholder="password_confirmation" name="password_confirmation">
+      <input type="password" placeholder="password confirmation" id="passwordConfirmation">
 
-      <button type="submit">Register!</button>
+      <button type="button" onclick="formCheck()">Register!</button>
     </form>
   </div>
+
+  <script>
+    function formCheck() {
+      var form = document.getElementById('registerForm');
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+      var passwordConfirmation = document.getElementById('passwordConfirmation').value;
+
+      if (name == '' || email == '' || password == '' || passwordConfirmation == '') {
+        alert('Some items are still empty. Please input all items!');
+      } else if (password != passwordConfirmation) {
+        alert('password does not match with password confirmation!');
+      } else {
+        form.submit();
+      }
+    }
+  </script>
 </body>
 
 </html>
