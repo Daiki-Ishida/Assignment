@@ -33,14 +33,12 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   // Instance Methods
-  User.prototype.login = function (session) {
-    session.uid = this.id;
+  User.prototype.login = function (req, res) {
+    req.session.uid = this.id;
+    res.redirect('/chat/top')
   };
-  User.prototype.authenticate = async function (input, session) {
-    const match = await bcrypt.compare(input, this.password_digest);
-    if (match) {
-      this.login(session)
-    }
+  User.prototype.isAuthenticated = function (input) {
+    return bcrypt.compare(input, this.password_digest);
   };
 
   return User;

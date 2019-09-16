@@ -15,7 +15,7 @@ router.post('/', async (req, res, next) => {
   })
   if (user) {
     console.log('user created!');
-    user.login(req.session);
+    await user.login(req);
     res.redirect('/chat/top');
   } else {
     console.log('failed to create user!');

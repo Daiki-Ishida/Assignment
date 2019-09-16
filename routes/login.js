@@ -7,20 +7,14 @@ router.get('/', (req, res, next) => {
   res.render('login');
 });
 
-router.post('/', (req, res, next) => {
-  const pwd = req.body.password
-  models.User.findOne(
-    {
-      where: {
-        email: req.body.email,
-      }
-    }).then(async (user) => {
-      await user.authenticate(pwd, req.session);
-      res.redirect('/chat/top');
-    }).catch(() => {
-      console.log('error!');
-      res.redirect('/login');
-    })
+router.post('/', async (req, res, next) => {
+  const pwd = req.body.password;
+  const user = await models.User.findOne({ where: { email: req.body.email } });
+  if (user && await user.isAuthenticated(pwd)) {
+    user.login(req, res);
+  } else {
+    res.redirect('/login');
+  }
 })
 
 module.exports = router;
