@@ -1,9 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
 var models = require('../models');
 
 router.get('/', function (req, res, next) {
@@ -18,10 +15,10 @@ router.post('/', async (req, res, next) => {
   })
   if (user) {
     console.log('user created!');
-    req.session.uid = user.id;
+    user.login(req.session);
     res.redirect('/chat/top');
   } else {
-    console.log(err);
+    console.log('failed to create user!');
     res.redirect('/register');
   }
 });

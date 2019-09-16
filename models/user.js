@@ -31,6 +31,18 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function (models) {
     // associations can be defined here
   };
+
+  // Instance Methods
+  User.prototype.login = function (session) {
+    session.uid = this.id;
+  };
+  User.prototype.authenticate = async function (input, session) {
+    const match = await bcrypt.compare(input, this.password_digest);
+    if (match) {
+      this.login(session)
+    }
+  };
+
   return User;
 };
 

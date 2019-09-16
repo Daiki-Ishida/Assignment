@@ -8,19 +8,17 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
+  const pwd = req.body.password
   models.User.findOne(
     {
       where: {
         email: req.body.email,
-        password_digest: req.body.password
       }
-    }).then((user) => {
-      console.log('safely logged in!');
-      req.session.uid = user.id;
+    }).then(async (user) => {
+      await user.authenticate(pwd, req.session);
       res.redirect('/chat/top');
-    }).catch((err) => {
+    }).catch(() => {
       console.log('error!');
-      console.log(err);
       res.redirect('/login');
     })
 })
