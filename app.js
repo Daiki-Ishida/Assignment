@@ -35,6 +35,7 @@ const isLoggedIn = (req, res, next) => {
   if (req.session.uid) {
     next();
   } else {
+    req.session.url = req.originalUrl;
     res.redirect('/login');
   }
 };

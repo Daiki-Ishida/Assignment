@@ -35,7 +35,9 @@ module.exports = (sequelize, DataTypes) => {
   // Instance Methods
   User.prototype.login = function (req, res) {
     req.session.uid = this.id;
-    res.redirect('/chat/top')
+    const url = req.session.url || '/chat/top'
+    res.redirect(url);
+    delete req.session.url
   };
   User.prototype.isAuthenticated = function (input) {
     return bcrypt.compare(input, this.password_digest);

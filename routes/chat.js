@@ -14,7 +14,7 @@ router.get('/top', function (req, res, next) {
 
 router.get('/other', function (req, res, next) {
   models.User.findByPk(req.session.uid).then((user) => {
-    res.render('other', { user: user });
+    res.render('chat/other', { user: user });
   }).catch((err) => {
     console.error(err);
     res.redirect('/login');
