@@ -31,12 +31,12 @@
   </div>
 
   <script>
-    function formCheck() {
-      var form = document.getElementById('registerForm');
-      var name = document.getElementById('name').value;
-      var email = document.getElementById('email').value;
-      var password = document.getElementById('password').value;
-      var passwordConfirmation = document.getElementById('passwordConfirmation').value;
+    formCheck = () => {
+      const form = document.getElementById('registerForm');
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const passwordConfirmation = document.getElementById('passwordConfirmation').value;
 
       if (name == '' || email == '' || password == '' || passwordConfirmation == '') {
         alert('Some items are still empty. Please input all items!');

@@ -29,6 +29,10 @@ var server = http.createServer(app);
 var io = require('socket.io')(server);
 io.on('connection', function (socket) {
   console.log('a user connected');
+  socket.on('req', (data) => {
+    console.log(data);
+    io.emit('res', data);
+  })
 });
 
 server.listen(port);
