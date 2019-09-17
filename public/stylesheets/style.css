@@ -1,6 +1,6 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 13px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -10,4 +10,45 @@ a {
 input {
   display: block;
   margin-bottom: 10px;
+}
+
+.chat-form { 
+  background: #52b9d1;
+  padding: 10px; 
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex
+}
+
+.chat-form input { 
+  border: 0;
+  border-radius: 10px;
+  padding: 10px;
+  width: 85%;
+  margin-right: .5%;
+  margin-bottom: 0;
+}
+
+.chat-form button {
+  width: 9%;
+  background: #f6c244;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#messages li {
+  padding: 5px 10px;
+}
+
+#messages li:nth-child(odd) {
+  background: #eee;
 }
