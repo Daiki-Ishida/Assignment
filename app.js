@@ -36,7 +36,7 @@ const sessionOpt = {
   store: new RedisStore({ client }),
   secret: 'hcetkcab',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: { maxAge: 1000 * 60 * 60 }
 }
 

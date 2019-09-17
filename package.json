@@ -19,6 +19,7 @@
     "redis": "^2.8.0",
     "sequelize": "^5.18.4",
     "sequelize-cli": "^5.5.1",
+    "socket.io": "^2.2.0",
     "sqlite3": "^4.1.0"
   }
 }

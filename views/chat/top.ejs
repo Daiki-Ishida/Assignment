@@ -4,6 +4,7 @@
 <head>
   <title>Sample-App</title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src="/socket.io/socket.io.js"></script>
 </head>
 
 <body>
@@ -14,8 +15,9 @@
   </header>
   <h1>Chat#Top</h1>
 
-
   <script>
+    var socket = io();
+
     function logout(e) {
       confirm('ログアウトしますか？');
       var form = document.createElement('form');
