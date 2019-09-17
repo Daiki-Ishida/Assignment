@@ -1,14 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Message = sequelize.define('Message', {
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     content: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   }, {
     underscored: true,
   });

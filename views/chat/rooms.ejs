@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sample-App</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <table class="room-list">
+    <thead>
+      <tr>
+        <th>Room Name</th>
+        <th>Host User</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(var i in rooms) { %>
+      <tr>
+        <td><%= rooms[i].name %></td>
+        <td><%= rooms[i].Host.name %></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</body>
+
+</html>

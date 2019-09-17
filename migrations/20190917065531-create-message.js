@@ -8,13 +8,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      content: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       user_id: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      content: {
+      room_id: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       created_at: {
         allowNull: false,

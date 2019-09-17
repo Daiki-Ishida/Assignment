@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sample-App</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1>Create Your Private Chat Room!</h1>
+  <div class="chat-create-form">
+    <form action="/chat/create" method="POST">
+      <label>Chat Room Name</label>
+      <input type="text" placeholder="The name of your room" name="name">
+
+      <label>Guest</label>
+      <input type="number" name="guets">
+
+      <button type="submit">Register!</button>
+    </form>
+  </div>
+</body>
+
+</html>
