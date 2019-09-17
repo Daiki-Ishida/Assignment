@@ -31,15 +31,16 @@ let client = redis.createClient()
 client.on('error', function (err) {
   console.log('Error ' + err)
 })
-
 const sessionOpt = {
   store: new RedisStore({ client }),
   secret: 'hcetkcab',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 60 }
+  cookie: {
+    httpOnly: false,
+    maxAge: 1000 * 60 * 60
+  }
 }
-
 const isLoggedIn = (req, res, next) => {
   if (req.session.uid) {
     next();
@@ -48,6 +49,7 @@ const isLoggedIn = (req, res, next) => {
     res.redirect('/login');
   }
 };
+app.session = session(sessionOpt);
 app.use(session(sessionOpt));
 
 app.use('/', indexRouter);

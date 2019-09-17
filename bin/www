@@ -26,12 +26,23 @@ var server = http.createServer(app);
  */
 
 // socket.io
-var io = require('socket.io')(server);
-io.on('connection', function (socket) {
-  console.log('a user connected');
-  socket.on('req', (data) => {
-    console.log(data);
-    io.emit('res', data);
+const models = require('../models');
+const io = require('socket.io')(server);
+var sessionMiddleware = app.session;
+io.use(function (socket, next) {
+  sessionMiddleware(socket.request, socket.request.res, next);
+});
+const globalChat = io.of('/chat/top');
+globalChat.on('connection', function (socket) {
+  console.log('global chat connected');
+  socket.on('req', async (content) => {
+    const uid = await socket.request.session.uid;
+    const user = await models.User.findByPk(uid);
+    const data = {
+      userName: user.name,
+      content: content
+    }
+    globalChat.emit('res', data);
   })
 });
 
