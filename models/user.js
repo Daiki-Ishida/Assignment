@@ -31,7 +31,10 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function (models) {
     User.hasMany(models.Message, { foreignKey: 'user_id' });
     User.hasMany(models.Room, { foreignKey: 'host_id' });
-    // User.belongsToMany(models.Room, { through: models.Guest })
+    User.belongsToMany(models.Room, {
+      through: models.Guest,
+      foreignKey: 'user_id'
+    })
   };
 
   // Instance Methods

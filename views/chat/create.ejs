@@ -14,9 +14,13 @@
       <input type="text" placeholder="The name of your room" name="name">
 
       <label>Guest</label>
-      <input type="number" name="guets">
+      <select name="guests" id="guestsSelect" multiple>
+        <% for(var i in users){ %>
+        <option value="<%= users[i].id %>"><%= users[i].name %></option>
+        <% } %>
+      </select>
 
-      <button type="submit">Register!</button>
+      <button type="submit">Create Room!</button>
     </form>
   </div>
 </body>

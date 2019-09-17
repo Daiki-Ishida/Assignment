@@ -8,8 +8,12 @@ module.exports = (sequelize, DataTypes) => {
   });
   Room.associate = function (models) {
     Room.hasMany(models.Message, { foreignKey: 'room_id' });
-    Room.belongsTo(models.User, { as: 'Host' });
-    // Room.belongsToMany(models.User, { through: models.Guest })
+    Room.belongsTo(models.User, { as: 'host' });
+    Room.belongsToMany(models.User, {
+      as: 'guests',
+      through: models.Guest,
+      foreignKey: 'room_id'
+    })
   };
   return Room;
 };
