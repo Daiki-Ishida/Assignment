@@ -45,6 +45,42 @@ globalChat.on('connection', function (socket) {
     globalChat.emit('res', data);
   })
 });
+const privateChat = io.of('/chat/rooms');
+privateChat.on('connection', function (socket) {
+  let room = ''
+  socket.on('joinToRoom', async (roomId) => {
+    const user = await models.User.findByPk(socket.request.session.uid);
+    room = await models.Room.findByPk(roomId, {
+      include: [{
+        model: models.Message,
+        include: [{
+          model: models.User,
+          attributes: ['name']
+        }]
+      }]
+    });
+    console.log(JSON.stringify(room));
+    const entryNotice = `${user.name} joined to this room!`;
+    socket.join(room.id);
+    socket.broadcast.to(room.id).emit('notice', entryNotice);
+    socket.emit('init', room.Messages);
+    console.log('a user join the room: ' + room.name);
+  })
+
+  socket.on('req', async (content) => {
+    const user = await models.User.findByPk(socket.request.session.uid);
+    const data = {
+      userName: user.name,
+      content: content
+    }
+    models.Message.create({
+      content: content,
+      user_id: user.id,
+      room_id: room.id
+    })
+    privateChat.to(room.id).emit('res', data);
+  })
+});
 
 server.listen(port);
 server.on('error', onError);

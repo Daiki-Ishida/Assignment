@@ -28,7 +28,6 @@ router.get('/create', (req, res, next) => {
 })
 
 router.post('/create', async (req, res, next) => {
-  console.log(req.body);
   const guests = await models.User.findAll({
     where: {
       id: req.body.guests
@@ -40,9 +39,10 @@ router.post('/create', async (req, res, next) => {
   });
   if (!newRoom) {
     res.redirect('/chat/create');
+  } else {
+    newRoom.setGuests(guests);
+    res.redirect('/chat/rooms');
   }
-  newRoom.setGuests(guests);
-  res.redirect('/chat/rooms');
 })
 
 router.get('/rooms', (req, res, next) => {

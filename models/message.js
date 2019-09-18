@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    room_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     }
   }, {
     underscored: true,
