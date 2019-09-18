@@ -52,3 +52,8 @@ input {
 #messages li:nth-child(odd) {
   background: #eee;
 }
+
+.your-room{
+  display: flex;
+  justify-content: space-around;
+}

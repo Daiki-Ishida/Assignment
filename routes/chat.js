@@ -3,9 +3,9 @@ var router = express.Router();
 
 var models = require('../models');
 
-router.get('/top', (req, res, next) => {
+router.get('/public', (req, res, next) => {
   models.User.findByPk(req.session.uid).then((user) => {
-    res.render('chat/top', { user: user });
+    res.render('chat/public', { user: user });
   }).catch((err) => {
     console.log(err);
     res.redirect('/login');
@@ -82,6 +82,31 @@ router.get('/rooms/:id', async (req, res, next) => {
     console.log('a user is not authorized to enter this room!');
     res.redirect('/chat/rooms');
   }
+})
+
+router.get('/mypage', async (req, res, next) => {
+  const user = await models.User.findByPk(req.session.uid, {
+    include: [{
+      model: models.Room,
+      as: 'host_rooms',
+      attributes: ['id', 'name'],
+      include: [{
+        model: models.User,
+        as: 'host',
+        attributes: ['id', 'name'],
+      }]
+    }, {
+      model: models.Room,
+      as: 'guest_rooms',
+      attributes: ['id', 'name'],
+      include: [{
+        model: models.User,
+        as: 'host',
+        attributes: ['id', 'name'],
+      }]
+    }]
+  });
+  res.render('chat/mypage', { user: user });
 })
 
 module.exports = router;

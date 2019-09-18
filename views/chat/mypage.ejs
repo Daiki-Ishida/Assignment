@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sample-App</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1>入室可能なチャットルーム一覧</h1>
+  <div class="my-links">
+    <a href="/chat/public">公開チャットルームへ行く</a>
+    <a href="/chat/create">新しくチャットルームを作る</a>
+  </div>
+  <div class="my-rooms">
+    <div class="host-rooms">
+      <h2>Host Room</h2>
+      <p>あなたがホストとなっているChat Roomです。</p>
+      <%- include('./room_list.ejs', {rooms: user.host_rooms}) %>
+    </div>
+    <div class="guest-rooms">
+      <h2>Guest Rooms</h2>
+      <p>あなたがゲストとして招待されているChat Roomです。</p>
+      <%- include('./room_list.ejs', {rooms: user.guest_rooms}) %>
+    </div>
+  </div>
+</body>
+
+</html>

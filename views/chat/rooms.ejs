@@ -9,22 +9,7 @@
 <body>
   <h1>Room List</h1>
   <h3>Please click the name of the room to enter.</h3>
-  <table class="room-list">
-    <thead>
-      <tr>
-        <th>Room Name</th>
-        <th>Host User</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for(var i in rooms) { %>
-      <tr>
-        <td><a href="/chat/rooms/<%= rooms[i].id %>"><%= rooms[i].name %></a></td>
-        <td><%= rooms[i].host.name %></td>
-      </tr>
-      <% } %>
-    </tbody>
-  </table>
+  <%- include('./room_list.ejs', {rooms: rooms}) %>
 </body>
 
 </html>

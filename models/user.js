@@ -30,8 +30,9 @@ module.exports = (sequelize, DataTypes) => {
   });
   User.associate = function (models) {
     User.hasMany(models.Message, { foreignKey: 'user_id' });
-    User.hasMany(models.Room, { foreignKey: 'host_id' });
+    User.hasMany(models.Room, { as: 'host_rooms', foreignKey: 'host_id' });
     User.belongsToMany(models.Room, {
+      as: 'guest_rooms',
       through: models.Guest,
       foreignKey: 'user_id'
     })
@@ -40,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
   // Instance Methods
   User.prototype.login = function (req, res) {
     req.session.uid = this.id;
-    const url = req.session.url || '/chat/top'
+    const url = req.session.url || '/chat/mypage'
     res.redirect(url);
     delete req.session.url
   };
