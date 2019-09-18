@@ -59,7 +59,6 @@ privateChat.on('connection', function (socket) {
         }]
       }]
     });
-    console.log(JSON.stringify(room));
     const entryNotice = `${user.name} joined to this room!`;
     socket.join(room.id);
     socket.broadcast.to(room.id).emit('notice', entryNotice);

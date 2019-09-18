@@ -61,21 +61,27 @@ router.get('/rooms', (req, res, next) => {
 })
 
 router.get('/rooms/:id', async (req, res, next) => {
-  models.Room.findByPk(
+  const user = await models.User.findByPk(req.session.uid);
+  const room = await models.Room.findByPk(
     req.params.id,
     {
       include: [{
         model: models.User,
         as: 'host',
         attributes: ['name']
+      }, {
+        model: models.User,
+        as: 'guests',
+        attributes: ['id', 'name']
       }]
     }
-  ).then((room) => {
+  );
+  if (user.isHost(room.host) || user.isGuest(room.guests)) {
     res.render('chat/room', { room: room })
-  }).catch((err) => {
-    console.error(err);
-    res.redirect('/');
-  })
+  } else {
+    console.log('a user is not authorized to enter this room!');
+    res.redirect('/chat/rooms');
+  }
 })
 
 module.exports = router;

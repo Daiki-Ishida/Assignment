@@ -46,7 +46,6 @@
     })
 
     socket.on('init', (msgs) => {
-      console.log(msgs);
       for (var i in msgs) {
         let msg = document.createElement("li");
         msg.textContent = `${msgs[i].User.name}: ${msgs[i].content}`;

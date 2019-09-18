@@ -47,6 +47,24 @@ module.exports = (sequelize, DataTypes) => {
   User.prototype.isAuthenticated = function (input) {
     return bcrypt.compare(input, this.password_digest);
   };
+  User.prototype.isGuest = function (guests) {
+    const array = [];
+    for (var i in guests) {
+      array.push(guests[i].id)
+    }
+    if (array.indexOf(this.id) >= 0) {
+      return true;
+    } else if (array.indexOf(this.id) == -1) {
+      return false;
+    }
+  };
+  User.prototype.isHost = function (host) {
+    if (this.id == host.id) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   return User;
 };
