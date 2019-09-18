@@ -68,7 +68,7 @@ router.get('/rooms/:id', async (req, res, next) => {
       include: [{
         model: models.User,
         as: 'host',
-        attributes: ['name']
+        attributes: ['id', 'name']
       }, {
         model: models.User,
         as: 'guests',

@@ -37,8 +37,7 @@ const sessionOpt = {
   resave: false,
   saveUninitialized: false,
   cookie: {
-    httpOnly: false,
-    maxAge: 1000 * 60 * 60
+    maxAge: 1000 * 60 * 30
   }
 }
 const isLoggedIn = (req, res, next) => {

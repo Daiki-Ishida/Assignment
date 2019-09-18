@@ -28,16 +28,17 @@ var server = http.createServer(app);
 // socket.io
 const models = require('../models');
 const io = require('socket.io')(server);
+var sharedsession = require("express-socket.io-session");
 var sessionMiddleware = app.session;
-io.use(function (socket, next) {
-  sessionMiddleware(socket.request, socket.request.res, next);
-});
+
 const globalChat = io.of('/chat/top');
+globalChat.use(sharedsession(sessionMiddleware, {
+  autoSave: true
+}));
 globalChat.on('connection', function (socket) {
   console.log('global chat connected');
   socket.on('req', async (content) => {
-    const uid = await socket.request.session.uid;
-    const user = await models.User.findByPk(uid);
+    const user = await models.User.findByPk(socket.handshake.session.uid);
     const data = {
       userName: user.name,
       content: content
@@ -46,10 +47,13 @@ globalChat.on('connection', function (socket) {
   })
 });
 const privateChat = io.of('/chat/rooms');
+privateChat.use(sharedsession(sessionMiddleware, {
+  autoSave: true
+}));
 privateChat.on('connection', function (socket) {
   let room = ''
   socket.on('joinToRoom', async (roomId) => {
-    const user = await models.User.findByPk(socket.request.session.uid);
+    const user = await models.User.findByPk(socket.handshake.session.uid);
     room = await models.Room.findByPk(roomId, {
       include: [{
         model: models.Message,
@@ -59,25 +63,33 @@ privateChat.on('connection', function (socket) {
         }]
       }]
     });
-    const entryNotice = `${user.name} joined to this room!`;
-    socket.join(room.id);
-    socket.broadcast.to(room.id).emit('notice', entryNotice);
-    socket.emit('init', room.Messages);
-    console.log('a user join the room: ' + room.name);
+    if (!user) {
+      socket.close();
+    } else {
+      const entryNotice = `${user.name} joined to this room!`;
+      socket.join(room.id);
+      socket.broadcast.to(room.id).emit('notice', entryNotice);
+      socket.emit('init', room.Messages);
+      console.log('a user join the room: ' + room.name);
+    }
   })
 
   socket.on('req', async (content) => {
-    const user = await models.User.findByPk(socket.request.session.uid);
-    const data = {
-      userName: user.name,
-      content: content
+    const user = await models.User.findByPk(socket.handshake.session.uid);
+    if (!user) {
+      socket.close();
+    } else {
+      const data = {
+        userName: user.name,
+        content: content
+      }
+      models.Message.create({
+        content: content,
+        user_id: user.id,
+        room_id: room.id
+      })
+      privateChat.to(room.id).emit('res', data);
     }
-    models.Message.create({
-      content: content,
-      user_id: user.id,
-      room_id: room.id
-    })
-    privateChat.to(room.id).emit('res', data);
   })
 });
 

@@ -58,6 +58,12 @@
       newMsg.textContent = `${data.userName}: ${data.content}`;
       messages.appendChild(newMsg);
     })
+
+    socket.on('disconnect', () => {
+      alert('ログイン状態が確認できませんでした。再度ログインをお願いします。');
+      location.href = "/login";
+    })
+
   </script>
 </body>
 
