@@ -9,9 +9,12 @@
 <body>
   <h1>Dummy Page</h1>
   <h2>Hi, <%= user.name %></h2>
-  <p>User need to login before accessing to this page</p>
+  <p>このページへのアクセスにはログインが必要です。</p>
   <div>
-    <a href="/chat/top">Chat Page</a>
+    <li><a href="/chat/public">公開チャットへ行く</a></li>
+    <li><a href="/chat/mypage">マイページへ行く</a></li>
+    <li><a href="/chat/create">新しくチャットルームを作る</a></li>
+    <li><a href="/chat/rooms">チャットルーム一覧へ行く</a></li>
   </div>
 </body>
 

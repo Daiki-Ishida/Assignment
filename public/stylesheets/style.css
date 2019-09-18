@@ -53,7 +53,7 @@ input {
   background: #eee;
 }
 
-.your-room{
+.my-rooms{
   display: flex;
   justify-content: space-around;
 }

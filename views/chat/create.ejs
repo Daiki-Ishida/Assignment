@@ -7,18 +7,19 @@
 </head>
 
 <body>
-  <h1>Create Your Private Chat Room!</h1>
+  <h1>Private Chat Roomを作る</h1>
   <div class="chat-create-form">
     <form action="/chat/create" method="POST">
-      <label>Chat Room Name</label>
+      <label>Chat Roomの名前</label>
       <input type="text" placeholder="The name of your room" name="name">
 
-      <label>Guest</label>
+      <label>招待するユーザー</label>
       <select name="guests" id="guestsSelect" multiple>
         <% for(var i in users){ %>
         <option value="<%= users[i].id %>"><%= users[i].name %></option>
         <% } %>
       </select>
+      <p>※commandキーを押しながらクリックすると複数のユーザーを選べます。</p>
 
       <button type="submit">Create Room!</button>
     </form>

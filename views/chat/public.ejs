@@ -8,14 +8,16 @@
 </head>
 
 <body>
-  <header>
-    <p><%= `logged in as ${user.name}` %></p>
-    <a href="/">Home</a>
-    <button type="button" id="logout" onclick="logout()">Logout</button>
-  </header>
-  <h1>Global Chat!</h1>
+  <%- include('../header.ejs', {user: user}) %>
+  <h1>Public Chat!</h1>
+  <p>ユーザー登録している人全員が参加するチャットです。</p>
+  <p>チャットの内容は保存されません。</p>
   <div>
-    <a href="/chat/create">Create Private Room</a>
+    <ul>
+      <li><a href="/chat/mypage">マイページへ行く</a></li>
+      <li><a href="/chat/create">新しくチャットルームを作る</a></li>
+      <li><a href="/chat/rooms">チャットルーム一覧へ行く</a></li>
+    </ul>
   </div>
   <div class="chat">
     <ul id="messages"></ul>
@@ -26,7 +28,7 @@
   </div>
 
   <script>
-    const socket = io('/chat/top');
+    const socket = io('/chat/public');
     const messages = document.getElementById('messages');
 
     const send = () => {

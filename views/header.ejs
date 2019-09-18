@@ -1,11 +1,5 @@
-<!-- <header>
-  <div class="header-left">
-    <a href="/">Home</a>
-  </div>
-  <div class="header-right">
-    <ul>
-      <li><%= sessionStatus %></li>
-      <li><a href="/logout">Logout</a></li>
-    </ul>
-  </div>
-</header> -->
+<header>
+  <p><%= user.name %>　でログイン中</p>
+  <a href="/">Homeに戻る</a>
+  <button type="button" id="logout" onclick="logout()">Logout</button>
+</header>

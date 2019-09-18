@@ -31,21 +31,24 @@ const io = require('socket.io')(server);
 var sharedsession = require("express-socket.io-session");
 var sessionMiddleware = app.session;
 
-const globalChat = io.of('/chat/top');
-globalChat.use(sharedsession(sessionMiddleware, {
+
+const publicChat = io.of('/chat/public');
+publicChat.use(sharedsession(sessionMiddleware, {
   autoSave: true
 }));
-globalChat.on('connection', function (socket) {
-  console.log('global chat connected');
+publicChat.on('connection', function (socket) {
+  console.log('public chat connected');
   socket.on('req', async (content) => {
     const user = await models.User.findByPk(socket.handshake.session.uid);
     const data = {
       userName: user.name,
       content: content
     }
-    globalChat.emit('res', data);
+    publicChat.emit('res', data);
   })
 });
+
+
 const privateChat = io.of('/chat/rooms');
 privateChat.use(sharedsession(sessionMiddleware, {
   autoSave: true

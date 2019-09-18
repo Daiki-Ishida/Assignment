@@ -7,8 +7,15 @@
 </head>
 
 <body>
-  <h1>Room List</h1>
-  <h3>Please click the name of the room to enter.</h3>
+  <h1>全チャットルーム一覧</h1>
+  <ul>
+    <li><a href="/chat/public">公開チャットへ行く</a></li>
+    <li><a href="/chat/mypage">マイページへ行く</a></li>
+    <li><a href="/chat/create">新しくチャットルームを作る</a></li>
+  </ul>
+  <p>
+    自分がホストか招待されているチャットルームにしか入れません。
+  </p>
   <%- include('./room_list.ejs', {rooms: rooms}) %>
 </body>
 

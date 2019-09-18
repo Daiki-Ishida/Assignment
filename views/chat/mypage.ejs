@@ -7,10 +7,14 @@
 </head>
 
 <body>
+  <%- include('../header.ejs', {user: user}) %>
   <h1>入室可能なチャットルーム一覧</h1>
   <div class="my-links">
-    <a href="/chat/public">公開チャットルームへ行く</a>
-    <a href="/chat/create">新しくチャットルームを作る</a>
+    <ul>
+      <li><a href="/chat/public">公開チャットへ行く</a></li>
+      <li><a href="/chat/create">新しくチャットルームを作る</a></li>
+      <li><a href="/chat/rooms">チャットルーム一覧へ行く</a></li>
+    </ul>
   </div>
   <div class="my-rooms">
     <div class="host-rooms">

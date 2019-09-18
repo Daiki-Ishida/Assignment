@@ -41,7 +41,7 @@ router.post('/create', async (req, res, next) => {
     res.redirect('/chat/create');
   } else {
     newRoom.setGuests(guests);
-    res.redirect('/chat/rooms');
+    res.redirect(`/chat/rooms/${newRoom.id}`);
   }
 })
 
